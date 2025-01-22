@@ -33,6 +33,9 @@ struct usBin8_T {
 };
 
 /* CONVERSION OF INTEGER TYPE TO SIGNED 8 BIT BINARY TYPE */
-struct sBin8_T vn_int_sbin8(int input);
+struct sBin8_T vn_int_sbin8(signed int input);
+
+/* CONVERSION OF INTEGER TYPE TO UNSIGNED 8 BIT BINARY TYPE */
+struct usBin8_T vn_int_usbin8(unsigned int input);
 
 #endif /* MADE BY @hanilr */
