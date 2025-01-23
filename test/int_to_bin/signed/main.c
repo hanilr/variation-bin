@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../../src/lib/vn_def.h"
+#include "../../../src/lib/vn_def.h"
 
 int main(void) {
 

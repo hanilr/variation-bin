@@ -1,7 +1,7 @@
 CC = gcc
 out = main
 file = main.c
-lib = ../../src/vn_def.c
+lib = ../../../src/vn_def.c
 
 .PHONY: run
 
