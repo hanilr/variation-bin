@@ -2,46 +2,34 @@
 #ifndef _VN_DEF_H
 #define _VN_DEF_H
     
-/* BINARY TYPE DECLARATION */
-enum Bin_E {
+enum Bin_E { // Binary type declaration
     LOW = 0,    // When bit is logical zero
     HIGH = 1    // When bit is logical one
 };
 
-/* SIGNED 8 BIT BINARY TYPE */
-struct sBin8_T {
+enum Bin_S { // Binary size selection type
+    S_Bin8 = 8,     // 8 bit      
+    S_Bin16 = 16,   // 16 bit 
+    S_Bin32 = 32,   // 32 bit 
+    S_Bin64 = 64    // 64 bit 
+};
+
+union Bin_U { // Data size selection part
+    enum Bin_E Bit8_T[7];   // 8 bit (1 byte)
+    enum Bin_E Bit16_T[15]; // 16 bit (2 byte)
+    enum Bin_E Bit32_T[31]; // 32 bit (4 byte)
+    enum Bin_E Bit64_T[63]; // 64 bit (8 byte)
+};
+
+struct Bin_T { // Binary type
+    union Bin_U bit_type;   // Bit type for 8, 16, 32 and 64
     enum Bin_E bit_sign;    // Singed type declaration for `-` or `+`
-    enum Bin_E bit_6;
-    enum Bin_E bit_5;
-    enum Bin_E bit_4;
-    enum Bin_E bit_3;
-    enum Bin_E bit_2;
-    enum Bin_E bit_1;
-    enum Bin_E bit_0;
 };
 
-/* UNSIGNED 8 BIT BINARY TYPE */
-struct usBin8_T {
-    enum Bin_E bit_7;       // Reverse of signed version
-    enum Bin_E bit_6;
-    enum Bin_E bit_5;
-    enum Bin_E bit_4;
-    enum Bin_E bit_3;
-    enum Bin_E bit_2;
-    enum Bin_E bit_1;
-    enum Bin_E bit_0;
-};
+/* INTEGER TO BINARY CONVERSION */
+struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input);
 
-/* CONVERSION OF INTEGER TYPE TO SIGNED 8 BIT BINARY TYPE */
-struct sBin8_T vn_int_sbin8(signed int input);
-
-/* SIGNED 8 BIT TO SIGNED INTEGER */
-int vn_sbin8_int(struct sBin8_T Bin);
-
-/* CONVERSION OF INTEGER TYPE TO UNSIGNED 8 BIT BINARY TYPE */
-struct usBin8_T vn_int_usbin8(unsigned int input);
-
-/* UNSIGNED 8 BIT TO SIGNED INTEGER */
-int vn_usbin8_int(struct usBin8_T Bin);
+/* BINARY TO INTEGER CONVERSION */
+int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin);
 
 #endif /* MADE BY @hanilr */
