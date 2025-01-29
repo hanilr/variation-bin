@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "../../src/lib/vn_def.h"
+#include "../../src/lib/vn_base.h"
+#include "../../src/lib/vn_util.h"
 
 int main(void) {
     int Int0 = 0, Int1 = 1, Int2 = -1;

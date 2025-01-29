@@ -1,11 +1,11 @@
-/* VARIATION BINARY (DEFINATION) */
+/* VARIATION BINARY (UTILITY) */
 
 /*  STANDARD LIBRARY */
 #include <stdio.h>
-#include <math.h>
 
 /* DIY LIBRARY */
-#include "lib/vn_def.h"
+#include "lib/vn_base.h"
+#include "lib/vn_util.h"
 
 struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
     struct Bin_T Bin;

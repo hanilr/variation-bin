@@ -1,6 +1,6 @@
-/* VARIATION BINARY (DEFINATION) */
-#ifndef _VN_DEF_H
-#define _VN_DEF_H
+/* VARIATION BINARY (BASE) */
+#ifndef _VN_BASE_H
+#define _VN_BASE_H
     
 enum Bin_E { // Binary type declaration
     LOW = 0,    // When bit is logical zero
@@ -25,11 +25,5 @@ struct Bin_T { // Binary type
     union Bin_U bit_type;   // Bit type for 8, 16, 32 and 64
     enum Bin_E bit_sign;    // Singed type declaration for `-` or `+`
 };
-
-/* INTEGER TO BINARY CONVERSION */
-struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input);
-
-/* BINARY TO INTEGER CONVERSION */
-int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin);
 
 #endif /* MADE BY @hanilr */
