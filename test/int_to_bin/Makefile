@@ -6,4 +6,4 @@ lib = ../../src/vn_util.c
 .PHONY: run
 
 run:
-	$(CC) $(lib) $(file) -o $(out) -lm
+	$(CC) $(lib) $(file) -o $(out)
