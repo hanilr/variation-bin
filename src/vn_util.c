@@ -111,4 +111,35 @@ int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin) {
     return result;
 }
 
+struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
+    struct Bin_T Bin;
+    enum Bin_S NewBinSize;
+
+    if (input < 0) { // Sign bit process
+        Bin.bit_sign = HIGH;
+    }
+    else Bin.bit_sign = LOW;
+
+    int part_int = (int)input; // Integer part
+    double dec = input - part_int;
+    int part_dec = (int)(dec * 1000000);
+    
+    int i = 0;
+    while (1) {
+        if (part_dec % 10 == 0) part_dec /= 10;
+        else break;
+
+        i += 1;
+        if (i == 6) break;
+    } 
+
+    struct Bin_T BinInteger = vn_int_to_bin(Bin_Size, part_int);
+    struct Bin_T BinDecimal = vn_int_to_bin(Bin_Size, part_dec);
+
+    Bin = vn_merge_bin(Bin_Size, BinInteger, BinDecimal);
+    Bin.bit_dot = HIGH; // Set the bit is double
+
+    return Bin;
+} // Double type limited to max 64 bit because of merge function
+
 /* MADE BY @hanilr */
