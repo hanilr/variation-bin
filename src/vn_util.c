@@ -158,12 +158,6 @@ int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin) {
 
 struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
     struct Bin_T Bin;
-    enum Bin_S NewBinSize;
-
-    if (input < 0) { // Sign bit process
-        Bin.bit_sign = HIGH;
-    }
-    else Bin.bit_sign = LOW;
 
     int part_int = (int)input; // Integer part
     double dec = input - part_int;
@@ -184,7 +178,40 @@ struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
     Bin = vn_merge_bin(Bin_Size, BinInteger, BinDecimal);
     Bin.bit_dot = HIGH; // Set the bit is double
 
+    if (input < 0) { // Sign bit process
+        Bin.bit_sign = HIGH;
+    }
+    else Bin.bit_sign = LOW;
+
     return Bin;
 } // Double type limited to max 64 bit because of merge function
+
+double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin) {
+    enum Bin_E B_Sign = Bin.bit_sign;
+    Bin.bit_sign = LOW;
+
+    struct Bin_T BinInt = vn_split_bin(Bin_Size, Bin, 'f');
+    struct Bin_T BinDec = vn_split_bin(Bin_Size, Bin, 's');
+
+    int part_int = vn_bin_to_int(Bin_Size/2, BinInt);
+    int part_dec = vn_bin_to_int(Bin_Size/2, BinDec);
+    if (part_dec == 0) return part_int;
+    double dec = (double)part_dec, result;
+
+    int i = 0;
+    while (part_dec > 0) {
+        part_dec /= 10;
+        i += 1;
+    } // Find digit
+
+    while (i > 0) {
+        dec /= 10;
+        i -= 1;
+    } // Find decimal part
+    result = part_int + dec;
+
+    if (B_Sign == HIGH) result *= -1;
+    return result;
+}
 
 /* MADE BY @hanilr */
