@@ -2,6 +2,7 @@
 
 #include "../../src/lib/vn_base.h"
 #include "../../src/lib/vn_util.h"
+#include "../../src/lib/vn_conv.h"
 
 void bin_printer(enum Bin_S Bin_Size, struct Bin_T Bin) {
     int i = 0;
