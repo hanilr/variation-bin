@@ -8,16 +8,4 @@ struct Bin_T vn_merge_bin(enum Bin_S Bin_Size, struct Bin_T BinFirst, struct Bin
 /* SEPARATE ONE BINARY TO NEW TWO */
 struct Bin_T vn_split_bin(enum Bin_S Bin_Size, struct Bin_T BinInput, char which_part);
 
-/* INTEGER TO BINARY CONVERSION */
-struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input);
-
-/* BINARY TO INTEGER CONVERSION */
-int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin);
-
-/* DOUBLE TO BINARY CONVERSION */
-struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input);
-
-/* BINARY TO DOUBLE CONVERSION */
-double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin);
-
 #endif /* MADE BY @hanilr */
