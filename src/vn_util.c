@@ -7,6 +7,14 @@
 #include "lib/vn_base.h"
 #include "lib/vn_util.h"
 
+void vn_set_sign_bin(struct Bin_T *Bin, enum Bin_E State) {
+    Bin->bit_sign = State;
+}
+
+void vn_set_dot_bin(struct Bin_T *Bin, enum Bin_E State) {
+    Bin->bit_dot = State;
+}
+
 struct Bin_T vn_merge_bin(enum Bin_S Bin_Size, struct Bin_T BinFirst, struct Bin_T BinSecond) {
     struct Bin_T NewBin;
     enum Bin_S NewBinSize;
@@ -95,5 +103,34 @@ struct Bin_T vn_split_bin(enum Bin_S Bin_Size, struct Bin_T BinInput, char which
     if (which_part == 'f') return BinFirst;
     else if (which_part == 's') return BinSecond;
 } // Min supported bit 8 for split
+
+struct Bin_T vn_reverse_bin(enum Bin_S Bin_Size, struct Bin_T BinInput) {
+    struct Bin_T Bin;
+
+    int i = 0;
+    while (1) {
+        if (Bin_Size == 4) {
+            Bin.bit_type.Bit4_T[i] = BinInput.bit_type.Bit4_T[Bin_Size - 1 - i];
+        } else if (Bin_Size == 8) {
+            Bin.bit_type.Bit8_T[i] = BinInput.bit_type.Bit8_T[Bin_Size - 1 - i];
+        } else if (Bin_Size == 16) {
+            Bin.bit_type.Bit16_T[i] = BinInput.bit_type.Bit16_T[Bin_Size - 1 - i];
+        } else if (Bin_Size == 32) {
+            Bin.bit_type.Bit32_T[i] = BinInput.bit_type.Bit32_T[Bin_Size - 1 - i];
+        } else if (Bin_Size == 64) {
+            Bin.bit_type.Bit64_T[i] = BinInput.bit_type.Bit64_T[Bin_Size - 1 - i];
+        } else if (Bin_Size == 128) {
+            Bin.bit_type.Bit128_T[i] = BinInput.bit_type.Bit128_T[Bin_Size - 1 - i];
+        }
+
+        i += 1;
+        if (i == Bin_Size) break;
+    }
+
+    Bin.bit_dot = BinInput.bit_dot;
+    Bin.bit_sign = BinInput.bit_sign;
+
+    return Bin;
+}
 
 /* MADE BY @hanilr */
