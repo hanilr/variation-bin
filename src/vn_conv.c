@@ -6,6 +6,7 @@
 /* DIY LIBRARY */
 #include "lib/vn_base.h"
 #include "lib/vn_util.h"
+#include "lib/vn_conv.h"
 
 struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
     struct Bin_T Bin;
@@ -35,6 +36,7 @@ struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
         if (i == Bin_Size || n < 0) break;
     }
 
+    Bin.bit_dot = LOW;
     return Bin;
 }
 
