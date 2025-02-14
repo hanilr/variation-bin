@@ -6,7 +6,8 @@ all_folder = all/
 util = ../src/vn_util.c
 conv = ../src/vn_conv.c
 manip = ../src/vn_manip.c
-lib = $(util) $(conv) $(manip)
+logic = ../src/vn_logic.c
+lib = $(util) $(conv) $(manip) $(logic)
 
 # Input Names #
 bin_merge_in = bin_merge/main.c
@@ -26,6 +27,13 @@ bit_shift_right_in = bit_shift_right/main.c
 bin_reverse_in = bin_reverse/main.c
 bit_set_sign_in = bit_set_sign/main.c
 bit_set_dot_in = bit_set_dot/main.c
+gate_and_in = gate_and/main.c
+gate_or_in = gate_or/main.c
+gate_not_in = gate_not/main.c
+gate_nand_in = gate_nand/main.c
+gate_nor_in = gate_nor/main.c
+gate_xor_in = gate_xor/main.c
+gate_xnor_in = gate_xnor/main.c
 
 # Output Names #
 bin_merge_out = bin_merge
@@ -45,6 +53,13 @@ bit_shift_right_out = bit_shift_right
 bin_reverse_out = bin_reverse
 bit_set_sign_out = bit_set_sign
 bit_set_dot_out = bit_set_dot
+gate_and_out = gate_and
+gate_or_out = gate_or
+gate_not_out = gate_not
+gate_nand_out = gate_nand
+gate_nor_out = gate_nor
+gate_xor_out = gate_xor
+gate_xnor_out = gate_xnor
 
 # Executable Names #
 bin_merge_exe = ./bin_merge/main
@@ -64,8 +79,15 @@ bit_shift_right_exe = ./bit_shift_right/main
 bin_reverse_exe = ./bin_reverse/main
 bit_set_sign_exe = ./bit_set_sign/main
 bit_set_dot_exe = ./bit_set_dot/main
+gate_and_exe = ./gate_and/main
+gate_or_exe = ./gate_or/main
+gate_not_exe = ./gate_not/main
+gate_nand_exe = ./gate_nand/main
+gate_nor_exe = ./gate_nor/main
+gate_xor_exe = ./gate_xor/main
+gate_xnor_exe = ./gate_xnor/main
 
-.PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot
+.PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot gate_and gate_or gate_not gate_nand gate_nor gate_xor gate_xnor
 
 run: $(lib)
 	@mkdir -p $(all_folder)
@@ -86,6 +108,13 @@ run: $(lib)
 	@$(CC) $(lib) $(bin_reverse_in) -o $(all_folder)$(bin_reverse_out)
 	@$(CC) $(lib) $(bit_set_sign_in) -o $(all_folder)$(bit_set_sign_out)
 	@$(CC) $(lib) $(bit_set_dot_in) -o $(all_folder)$(bit_set_dot_out)
+	@$(CC) $(lib) $(gate_and_in) -o $(all_folder)$(gate_and_out)
+	@$(CC) $(lib) $(gate_or_in) -o $(all_folder)$(gate_or_out)
+	@$(CC) $(lib) $(gate_not_in) -o $(all_folder)$(gate_not_out)
+	@$(CC) $(lib) $(gate_nand_in) -o $(all_folder)$(gate_nand_out)
+	@$(CC) $(lib) $(gate_nor_in) -o $(all_folder)$(gate_nor_out)
+	@$(CC) $(lib) $(gate_xor_in) -o $(all_folder)$(gate_xor_out)
+	@$(CC) $(lib) $(gate_xnor_in) -o $(all_folder)$(gate_xnor_out)
 
 clean: $(all_folder)
 	@rm -rf $(all_folder)
@@ -108,6 +137,13 @@ all:
 	@$(CC) $(lib) $(bin_reverse_in) -o $(bin_reverse_exe)
 	@$(CC) $(lib) $(bit_set_sign_in) -o $(bit_set_sign_exe)
 	@$(CC) $(lib) $(bit_set_dot_in) -o $(bit_set_dot_exe)
+	@$(CC) $(lib) $(gate_and_in) -o $(gate_and_exe)
+	@$(CC) $(lib) $(gate_or_in) -o $(gate_or_exe)
+	@$(CC) $(lib) $(gate_not_in) -o $(gate_not_exe)
+	@$(CC) $(lib) $(gate_nand_in) -o $(gate_nand_exe)
+	@$(CC) $(lib) $(gate_nor_in) -o $(gate_nor_exe)
+	@$(CC) $(lib) $(gate_xor_in) -o $(gate_xor_exe)
+	@$(CC) $(lib) $(gate_xnor_in) -o $(gate_xnor_exe)
 
 clean_all:
 	@rm -f $(bin_merge_exe)
@@ -127,6 +163,13 @@ clean_all:
 	@rm -f $(bin_reverse_exe)
 	@rm -f $(bit_set_sign_exe)
 	@rm -f $(bit_set_dot_exe)
+	@rm -f $(gate_and_exe)
+	@rm -f $(gate_or_exe)
+	@rm -f $(gate_not_exe)
+	@rm -f $(gate_nand_exe)
+	@rm -f $(gate_nor_exe)
+	@rm -f $(gate_xor_exe)
+	@rm -f $(gate_xnor_exe)
 
 bin_merge: $(bin_merge_in)
 	@$(CC) $(lib) $(bin_merge_in) -o $(bin_merge_exe)
@@ -195,3 +238,31 @@ bit_set_sign: $(bit_set_sign_in)
 bit_set_dot: $(bit_set_dot_in)
 	@$(CC) $(lib) $(bit_set_dot_in) -o $(bit_set_dot_exe)
 	@$(bit_set_dot_exe)
+
+gate_and: $(gate_and_in)
+	@$(CC) $(lib) $(gate_and_in) -o $(gate_and_exe)
+	@$(gate_and_exe)
+
+gate_or: $(gate_or_in)
+	@$(CC) $(lib) $(gate_or_in) -o $(gate_or_exe)
+	@$(gate_or_exe)
+
+gate_not: $(gate_not_in)
+	@$(CC) $(lib) $(gate_not_in) -o $(gate_not_exe)
+	@$(gate_not_exe)
+
+gate_nand: $(gate_nand_in)
+	@$(CC) $(lib) $(gate_nand_in) -o $(gate_nand_exe)
+	@$(gate_nand_exe)
+
+gate_nor: $(gate_nor_in)
+	@$(CC) $(lib) $(gate_nor_in) -o $(gate_nor_exe)
+	@$(gate_nor_exe)
+
+gate_xor: $(gate_xor_in)
+	@$(CC) $(lib) $(gate_xor_in) -o $(gate_xor_exe)
+	@$(gate_xor_exe)
+
+gate_xnor: $(gate_xnor_in)
+	@$(CC) $(lib) $(gate_xnor_in) -o $(gate_xnor_exe)
+	@$(gate_xnor_exe)
