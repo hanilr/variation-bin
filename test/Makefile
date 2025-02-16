@@ -90,60 +90,111 @@ gate_xnor_exe = ./gate_xnor/main
 .PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot gate_and gate_or gate_not gate_nand gate_nor gate_xor gate_xnor
 
 run: $(lib)
+	@echo -n "\nCompiling: ["
 	@mkdir -p $(all_folder)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_merge_in) -o $(all_folder)$(bin_merge_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_split_in) -o $(all_folder)$(bin_split_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_to_double_in) -o $(all_folder)$(bin_to_double_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_to_int_in) -o $(all_folder)$(bin_to_int_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(double_to_bin_in) -o $(all_folder)$(double_to_bin_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(int_to_bin_in) -o $(all_folder)$(int_to_bin_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_set_in) -o $(all_folder)$(bit_set_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_get_in) -o $(all_folder)$(bit_get_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_toggle_in) -o $(all_folder)$(bit_toggle_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_clear_in) -o $(all_folder)$(bit_clear_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_get_range_in) -o $(all_folder)$(bit_get_range_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_clean_range_in) -o $(all_folder)$(bit_clean_range_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_shift_left_in) -o $(all_folder)$(bit_shift_left_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_shift_right_in) -o $(all_folder)$(bit_shift_right_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_reverse_in) -o $(all_folder)$(bin_reverse_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_set_sign_in) -o $(all_folder)$(bit_set_sign_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_set_dot_in) -o $(all_folder)$(bit_set_dot_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_and_in) -o $(all_folder)$(gate_and_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_or_in) -o $(all_folder)$(gate_or_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_not_in) -o $(all_folder)$(gate_not_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_nand_in) -o $(all_folder)$(gate_nand_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_nor_in) -o $(all_folder)$(gate_nor_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_xor_in) -o $(all_folder)$(gate_xor_out)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_xnor_in) -o $(all_folder)$(gate_xnor_out)
+	@echo "]\n"
 
 clean: $(all_folder)
 	@rm -rf $(all_folder)
 
 all: 
+	@echo -n "\nCompiling: ["
 	@$(CC) $(lib) $(bin_merge_in) -o $(bin_merge_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_split_in) -o $(bin_split_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_to_double_in) -o $(bin_to_double_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_to_int_in) -o $(bin_to_int_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(double_to_bin_in) -o $(double_to_bin_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(int_to_bin_in) -o $(int_to_bin_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_set_in) -o $(bit_set_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_get_in) -o $(bit_get_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_toggle_in) -o $(bit_toggle_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_clear_in) -o $(bit_clear_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_get_range_in) -o $(bit_get_range_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_clean_range_in) -o $(bit_clean_range_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_shift_left_in) -o $(bit_shift_left_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_shift_right_in) -o $(bit_shift_right_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bin_reverse_in) -o $(bin_reverse_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_set_sign_in) -o $(bit_set_sign_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(bit_set_dot_in) -o $(bit_set_dot_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_and_in) -o $(gate_and_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_or_in) -o $(gate_or_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_not_in) -o $(gate_not_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_nand_in) -o $(gate_nand_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_nor_in) -o $(gate_nor_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_xor_in) -o $(gate_xor_exe)
+	@echo -n "*"
 	@$(CC) $(lib) $(gate_xnor_in) -o $(gate_xnor_exe)
+	@echo "]\n"
 
 clean_all:
 	@rm -f $(bin_merge_exe)
