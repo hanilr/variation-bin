@@ -8,6 +8,7 @@
 #include "lib/vn_util.h"
 #include "lib/vn_conv.h"
 #include "lib/vn_manip.h"
+#include "lib/vn_logic.h"
 
 struct Bin_T vn_logic(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char logic_op) {
     struct Bin_T ResultBin;
