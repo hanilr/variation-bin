@@ -31,4 +31,16 @@ struct Bin_T { // Binary type
     enum Bin_E bit_dot;     // If high then split bits to half and last half is decimal
 };
 
+union Bin_Math {
+    enum Bin_E Sum;
+    enum Bin_E Carry;
+    enum Bin_E Dif;
+    enum Bin_E Borrow;
+};
+
+struct Bin_M { // Math type
+    union Bin_Math math_type_first;
+    union Bin_Math math_type_second;
+};
+
 #endif /* MADE BY @hanilr */
