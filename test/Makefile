@@ -7,7 +7,8 @@ util = ../src/vn_util.c
 conv = ../src/vn_conv.c
 manip = ../src/vn_manip.c
 logic = ../src/vn_logic.c
-lib = $(util) $(conv) $(manip) $(logic)
+math = ../src/vn_math.c
+lib = $(util) $(conv) $(manip) $(logic) $(math)
 
 # Input Names #
 bin_merge_in = bin_merge/main.c
@@ -34,6 +35,12 @@ gate_nand_in = gate_nand/main.c
 gate_nor_in = gate_nor/main.c
 gate_xor_in = gate_xor/main.c
 gate_xnor_in = gate_xnor/main.c
+math_half_adder_in = math_half_adder/main.c
+math_full_adder_in = math_full_adder/main.c
+math_half_subtractor_in = math_half_subtractor/main.c
+math_full_subtractor_in = math_full_subtractor/main.c
+math_add_in = math_add/main.c
+math_sub_in = math_sub/main.c
 
 # Output Names #
 bin_merge_out = bin_merge
@@ -60,6 +67,12 @@ gate_nand_out = gate_nand
 gate_nor_out = gate_nor
 gate_xor_out = gate_xor
 gate_xnor_out = gate_xnor
+math_half_adder_out = math_half_adder
+math_full_adder_out = math_full_adder
+math_half_subtractor_out = math_half_subtractor
+math_full_subtractor_out = math_full_subtractor
+math_add_out = math_add
+math_sub_out = math_sub
 
 # Executable Names #
 bin_merge_exe = ./bin_merge/main
@@ -86,8 +99,14 @@ gate_nand_exe = ./gate_nand/main
 gate_nor_exe = ./gate_nor/main
 gate_xor_exe = ./gate_xor/main
 gate_xnor_exe = ./gate_xnor/main
+math_half_adder_exe = ./math_half_adder/main
+math_full_adder_exe = ./math_full_adder/main
+math_half_subtractor_exe = ./math_half_subtractor/main
+math_full_subtractor_exe = ./math_full_subtractor/main
+math_add_exe = ./math_add/main
+math_sub_exe = ./math_sub/main
 
-.PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot gate_and gate_or gate_not gate_nand gate_nor gate_xor gate_xnor
+.PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot gate_and gate_or gate_not gate_nand gate_nor gate_xor gate_xnor math_half_adder math_full_adder math_half_subtractor math_full_subtractor math_add math_sub
 
 run: $(lib)
 	@echo -n "\nCompiling: ["
@@ -140,6 +159,18 @@ run: $(lib)
 	@$(CC) $(lib) $(gate_xor_in) -o $(all_folder)$(gate_xor_out)
 	@echo -n "*"
 	@$(CC) $(lib) $(gate_xnor_in) -o $(all_folder)$(gate_xnor_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_half_adder_in) -o $(all_folder)$(math_half_adder_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_full_adder_in) -o $(all_folder)$(math_full_adder_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_half_subtractor_in) -o $(all_folder)$(math_half_subtractor_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_full_subtractor_in) -o $(all_folder)$(math_full_subtractor_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_add_in) -o $(all_folder)$(math_add_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_sub_in) -o $(all_folder)$(math_sub_out)
 	@echo "]\n"
 
 clean: $(all_folder)
@@ -194,6 +225,18 @@ all:
 	@$(CC) $(lib) $(gate_xor_in) -o $(gate_xor_exe)
 	@echo -n "*"
 	@$(CC) $(lib) $(gate_xnor_in) -o $(gate_xnor_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_half_adder_in) -o $(math_half_adder_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_full_adder_in) -o $(math_full_adder_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_half_subtractor_in) -o $(math_half_subtractor_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_full_subtractor_in) -o $(math_full_subtractor_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_add_in) -o $(math_add_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(math_sub_in) -o $(math_sub_exe)
 	@echo "]\n"
 
 clean_all:
@@ -221,6 +264,12 @@ clean_all:
 	@rm -f $(gate_nor_exe)
 	@rm -f $(gate_xor_exe)
 	@rm -f $(gate_xnor_exe)
+	@rm -f $(math_half_adder_exe)
+	@rm -f $(math_full_adder_exe)
+	@rm -f $(math_half_subtractor_exe)
+	@rm -f $(math_full_subtractor_exe)
+	@rm -f $(math_add_exe)
+	@rm -f $(math_sub_exe)
 
 bin_merge: $(bin_merge_in)
 	@$(CC) $(lib) $(bin_merge_in) -o $(bin_merge_exe)
@@ -317,3 +366,27 @@ gate_xor: $(gate_xor_in)
 gate_xnor: $(gate_xnor_in)
 	@$(CC) $(lib) $(gate_xnor_in) -o $(gate_xnor_exe)
 	@$(gate_xnor_exe)
+
+math_half_adder: $(math_half_adder_in)
+	@$(CC) $(lib) $(math_half_adder_in) -o $(math_half_adder_exe)
+	@$(math_half_adder_exe)
+
+math_full_adder: $(math_full_adder_in)
+	@$(CC) $(lib) $(math_full_adder_in) -o $(math_full_adder_exe)
+	@$(math_full_adder_exe)
+
+math_half_subtractor: $(math_half_subtractor_in)
+	@$(CC) $(lib) $(math_half_subtractor_in) -o $(math_half_subtractor_exe)
+	@$(math_half_subtractor_exe)
+
+math_full_subtractor: $(math_full_subtractor_in)
+	@$(CC) $(lib) $(math_full_subtractor_in) -o $(math_full_subtractor_exe)
+	@$(math_full_subtractor_exe)
+
+math_add: $(math_add_in)
+	@$(CC) $(lib) $(math_add_in) -o $(math_add_exe)
+	@$(math_add_exe)
+
+math_sub: $(math_sub_in)
+	@$(CC) $(lib) $(math_sub_in) -o $(math_sub_exe)
+	@$(math_sub_exe)
