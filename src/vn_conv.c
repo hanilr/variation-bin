@@ -2,6 +2,8 @@
 
 /*  STANDARD LIBRARY */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* DIY LIBRARY */
 #include "lib/vn_base.h"
@@ -124,6 +126,99 @@ double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin) {
     result = part_int + dec;
 
     if (B_Sign == HIGH) result *= -1;
+    return result;
+}
+
+struct Bin_T vn_hex_to_bin(enum Hex_S Hex_Size, char *input) {
+    int input_len = strlen(input);
+    enum Bin_S Bin_Size;
+    struct Bin_T Bin[input_len];
+    struct Bin_T Result;
+    int i = 0, cInt[input_len];
+
+    if (Hex_Size == 2) Bin_Size = 8;
+    else if (Hex_Size == 4) Bin_Size = 16;
+    else if (Hex_Size == 8) Bin_Size = 32;
+    else if (Hex_Size == 16) Bin_Size = 64;
+
+    while (i != input_len) {
+        if (input[i] >= '0' && input[i] <= '9') cInt[i] = input[i] - '0';
+        else if (input[i] >= 'a' && input[i] <= 'f') cInt[i] = 10 + (input[i] - 'a');
+        i += 1;
+    } i = 0;
+
+    while (i != input_len) {
+        Bin[i] = vn_int_to_bin(4, cInt[i]);
+        i += 1;
+    }
+
+    if (Bin_Size == 8) {
+        Result = vn_merge_bin(4, Bin[0], Bin[1]);
+    } else if (Bin_Size == 16) {
+        Result = vn_merge_bin(8, vn_merge_bin(4, Bin[0], Bin[1]), vn_merge_bin(4, Bin[2], Bin[3]));
+    } else if (Bin_Size == 32) {
+        Bin[0] = vn_merge_bin(8, vn_merge_bin(4, Bin[0], Bin[1]), vn_merge_bin(4, Bin[2], Bin[3]));
+        Bin[1] = vn_merge_bin(8, vn_merge_bin(4, Bin[4], Bin[5]), vn_merge_bin(4, Bin[6], Bin[7]));
+        Result = vn_merge_bin(16, Bin[0], Bin[1]);
+    } else if (Bin_Size == 64) {
+        Bin[0] = vn_merge_bin(8, vn_merge_bin(4, Bin[0], Bin[1]), vn_merge_bin(4, Bin[2], Bin[3]));
+        Bin[1] = vn_merge_bin(8, vn_merge_bin(4, Bin[4], Bin[5]), vn_merge_bin(4, Bin[6], Bin[7]));
+        Result = vn_merge_bin(16, Bin[0], Bin[1]);
+
+        Bin[0] = vn_merge_bin(8, vn_merge_bin(4, Bin[8], Bin[9]), vn_merge_bin(4, Bin[10], Bin[11]));
+        Bin[1] = vn_merge_bin(8, vn_merge_bin(4, Bin[12], Bin[13]), vn_merge_bin(4, Bin[14], Bin[15]));
+        Bin[2] = vn_merge_bin(16, Bin[0], Bin[1]);
+        Result = vn_merge_bin(32, Result, Bin[2]);
+    } 
+    
+    Result.bit_dot = HIGH;
+    return Result;
+}
+
+char* vn_bin_to_hex(enum Bin_S Bin_Size, struct Bin_T InputBin) {
+    int Hex_Size;
+
+    if (Bin_Size == 8) Hex_Size = 2;
+    else if (Bin_Size == 16) Hex_Size = 4;
+    else if (Bin_Size == 32) Hex_Size = 8;
+    else if (Bin_Size == 64) Hex_Size = 16;
+    
+    struct Bin_T Bin[Hex_Size];
+    char *result = (char*)malloc((Hex_Size) * sizeof(char));
+
+    char check[16][4] = {
+        {'f', 'f', 'f', 'f'}, {'f', 'f', 'f', 's'}, {'f', 'f', 's', 'f'}, {'f', 'f', 's', 's'},
+        {'f', 's', 'f', 'f'}, {'f', 's', 'f', 's'}, {'f', 's', 's', 'f'}, {'f', 's', 's', 's'},
+        {'s', 'f', 'f', 'f'}, {'s', 'f', 'f', 's'}, {'s', 'f', 's', 'f'}, {'s', 'f', 's', 's'}, 
+        {'s', 's', 'f', 'f'}, {'s', 's', 'f', 's'}, {'s', 's', 's', 'f'}, {'s', 's', 's', 's'}
+    };
+
+    int i = 0, n = 0, temp_size = 8, cInt[Hex_Size]; 
+    while (i != Hex_Size) {
+        if (Hex_Size == 2) {
+            Bin[i] = vn_split_bin(8, InputBin, check[i][3]);
+        } else if (Hex_Size == 4) {
+            Bin[i] = vn_split_bin(8, vn_split_bin(16, InputBin, check[i][2]), check[i][3]);
+        } else if (Hex_Size == 8) {
+            Bin[i] = vn_split_bin(8, vn_split_bin(16, vn_split_bin(32, InputBin, check[i][1]), check[i][2]), check[i][3]);
+        } else if (Hex_Size == 16) {
+            Bin[i] = vn_split_bin(8, vn_split_bin(16, vn_split_bin(32, vn_split_bin(64, InputBin, check[i][0]), check[i][1]), check[i][2]), check[i][3]);
+        } 
+        i += 1;
+    } i = 0;
+    
+    while (i != Hex_Size) {
+        cInt[i] = vn_bin_to_int(4, Bin[i]);
+        i += 1;
+    } i = 0;
+
+    while (i != Hex_Size) {
+        if (cInt[i] >= 0 && cInt[i] <= 9) result[i] = cInt[i] + '0';
+        else if (cInt[i] >= 10 && cInt[i] <= 15) result[i] = (cInt[i] - 10 ) + 'a';
+        i += 1;
+    }
+
+    result[Hex_Size] = '\0';
     return result;
 }
 
