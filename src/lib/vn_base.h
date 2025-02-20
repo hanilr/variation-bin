@@ -16,6 +16,13 @@ enum Bin_S { // Binary size selection type
     S_Bin128 = 128  // 128 bit
 };
 
+enum Hex_S { // Hexadecimal size selection type
+    S_Hex2 = 2, // 8 bit
+    S_Hex4 = 4, // 16 bit
+    S_Hex8 = 8, // 32 bit
+    S_Hex16 = 16 // 64 bit
+};
+
 union Bin_U { // Data size selection part
     enum Bin_E Bit4_T[3];       // 8 bit (1 byte)
     enum Bin_E Bit8_T[7];       // 8 bit (1 byte)
