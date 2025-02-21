@@ -38,16 +38,16 @@ struct Bin_T { // Binary type
     enum Bin_E bit_dot;     // If high then split bits to half and last half is decimal
 };
 
-union Bin_Math {
-    enum Bin_E Sum;
-    enum Bin_E Carry;
-    enum Bin_E Dif;
-    enum Bin_E Borrow;
+union Bin_Math { // Binary math declaration
+    enum Bin_E Sum;     // Addition result
+    enum Bin_E Carry;   // Addition mod
+    enum Bin_E Dif;     // Subtraction result
+    enum Bin_E Borrow;  // Subtraction mod
 };
 
 struct Bin_M { // Math type
-    union Bin_Math math_type_first;
-    union Bin_Math math_type_second;
-};
+    union Bin_Math math_type_first;     // If this sum or dif
+    union Bin_Math math_type_second;    // Than this carry or borrow
+}; // Because of union type need to make two variable
 
 #endif /* MADE BY @hanilr */
