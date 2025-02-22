@@ -5,6 +5,7 @@
 
 /* DIY LIBRARY */
 #include "lib/vn_base.h"
+#include "lib/vn_manip.h"
 
 void vn_bit_set(enum Bin_E *Bit, enum Bin_E State) {
     *Bit = State; // Set to 'State'

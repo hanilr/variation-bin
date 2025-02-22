@@ -12,7 +12,7 @@ void vn_set_sign_bin(struct Bin_T *Bin, enum Bin_E State) {
 }
 
 void vn_set_dot_bin(struct Bin_T *Bin, enum Bin_E State) {
-    Bin->bit_dot = State; // Set dot bit as 'State
+    Bin->bit_dot = State; // Set dot bit as 'State'
 }
 
 struct Bin_T vn_merge_bin(enum Bin_S Bin_Size, struct Bin_T BinFirst, struct Bin_T BinSecond) {
@@ -71,8 +71,7 @@ struct Bin_T vn_split_bin(enum Bin_S Bin_Size, struct Bin_T BinInput, char which
     if (which_part == 'f') {
         part_sel = 0;
         section_sel = 0;
-    }
-    else if (which_part == 's') {
+    } else if (which_part == 's') {
         part_sel = 1;
         section_sel = Size;
     }
