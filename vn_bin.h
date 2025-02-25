@@ -75,7 +75,7 @@
     /* ------------------------------ */
     /* [set_sign] Set binary sign. (struct Bin_T *Bin, enum Bin_E State) */
     /* [set_dot] Set binary dot. (struct Bin_T *Bin, enum Bin_E State) */
-    /* [merge] Merge two binary to one. enum Bin_S Bin_Size, struct Bin_T BinFirst, struct Bin_T BinSecond) */
+    /* [merge] Merge two binary to one. (enum Bin_S Bin_Size, struct Bin_T BinFirst, struct Bin_T BinSecond) */
     /* [split] Separate one binary to two. (enum Bin_S Bin_Size, struct Bin_T BinInput, char which_part) */
     /* [reverse] Reverse a binary. (enum Bin_S Bin_Size, struct Bin_T BinInput) */
     /* [int_to_bin] Integer to binary conversion. (enum Bin_S Bin_Size, int input) */
@@ -121,6 +121,11 @@
 #endif /* SUMMARY SECTION */
 
 #ifdef VN_BIN_IMPLEMENTATION
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <stdarg.h>
+
     void vn_set_sign_bin(struct Bin_T *Bin, enum Bin_E State) {
         Bin->bit_sign = State; // Set sign bit as 'State'
     }
@@ -566,7 +571,7 @@
         }
     }
 
-    struct Bin_T vn_logic(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char logic_op) {
+    struct Bin_T vn_logic_process(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char logic_op) {
         struct Bin_T ResultBin;
         int i = 0;
 
@@ -625,15 +630,15 @@
     }
 
     struct Bin_T vn_and(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-        return vn_logic(Bin_Size, FirstBin, SecondBin, '&');
+        return vn_logic_process(Bin_Size, FirstBin, SecondBin, '&');
     }
 
     struct Bin_T vn_or(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-        return vn_logic(Bin_Size, FirstBin, SecondBin, '|');
+        return vn_logic_process(Bin_Size, FirstBin, SecondBin, '|');
     }
 
     struct Bin_T vn_not(enum Bin_S Bin_Size, struct Bin_T FirstBin) {
-        return vn_logic(Bin_Size, FirstBin, FirstBin, '~');
+        return vn_logic_process(Bin_Size, FirstBin, FirstBin, '~');
     }
 
     struct Bin_T vn_nand(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
@@ -647,7 +652,7 @@
     }
 
     struct Bin_T vn_xor(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-        return vn_logic(Bin_Size, FirstBin, SecondBin, '^');
+        return vn_logic_process(Bin_Size, FirstBin, SecondBin, '^');
     }
 
     struct Bin_T vn_xnor(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
@@ -705,7 +710,7 @@
         return Result;
     }
 
-    struct Bin_T vn_math(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char math_op) {
+    struct Bin_T vn_math_process(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char math_op) {
         struct Bin_T Result = {0};
         struct Bin_M OP = {0};
 
@@ -793,11 +798,11 @@
     }
 
     struct Bin_T vn_add(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-        return vn_math(Bin_Size, FirstBin, SecondBin, '+');
+        return vn_math_process(Bin_Size, FirstBin, SecondBin, '+');
     }
 
     struct Bin_T vn_sub(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-        return vn_math(Bin_Size, FirstBin, SecondBin, '-');
+        return vn_math_process(Bin_Size, FirstBin, SecondBin, '-');
     }
 
     /* Variation Binizer: Binary process linker. */

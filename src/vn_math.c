@@ -61,7 +61,7 @@ struct Bin_M vn_full_subtractor(enum Bin_E A, enum Bin_E B, enum Bin_E Bin) {
     return Result;
 }
 
-struct Bin_T vn_math(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char math_op) {
+struct Bin_T vn_math_process(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char math_op) {
     struct Bin_T Result = {0};
     struct Bin_M OP = {0};
 
@@ -149,11 +149,11 @@ struct Bin_T vn_math(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T Se
 }
 
 struct Bin_T vn_add(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-    return vn_math(Bin_Size, FirstBin, SecondBin, '+');
+    return vn_math_process(Bin_Size, FirstBin, SecondBin, '+');
 }
 
 struct Bin_T vn_sub(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-    return vn_math(Bin_Size, FirstBin, SecondBin, '-');
+    return vn_math_process(Bin_Size, FirstBin, SecondBin, '-');
 }
 
 /* MADE BY @hanilr */

@@ -10,7 +10,7 @@
 #include "lib/vn_manip.h"
 #include "lib/vn_logic.h"
 
-struct Bin_T vn_logic(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char logic_op) {
+struct Bin_T vn_logic_process(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin, char logic_op) {
     struct Bin_T ResultBin;
     int i = 0;
 
@@ -69,15 +69,15 @@ struct Bin_T vn_logic(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T S
 }
 
 struct Bin_T vn_and(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-    return vn_logic(Bin_Size, FirstBin, SecondBin, '&');
+    return vn_logic_process(Bin_Size, FirstBin, SecondBin, '&');
 }
 
 struct Bin_T vn_or(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-    return vn_logic(Bin_Size, FirstBin, SecondBin, '|');
+    return vn_logic_process(Bin_Size, FirstBin, SecondBin, '|');
 }
 
 struct Bin_T vn_not(enum Bin_S Bin_Size, struct Bin_T FirstBin) {
-    return vn_logic(Bin_Size, FirstBin, FirstBin, '~');
+    return vn_logic_process(Bin_Size, FirstBin, FirstBin, '~');
 }
 
 struct Bin_T vn_nand(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
@@ -91,7 +91,7 @@ struct Bin_T vn_nor(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T Sec
 }
 
 struct Bin_T vn_xor(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
-    return vn_logic(Bin_Size, FirstBin, SecondBin, '^');
+    return vn_logic_process(Bin_Size, FirstBin, SecondBin, '^');
 }
 
 struct Bin_T vn_xnor(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) {
