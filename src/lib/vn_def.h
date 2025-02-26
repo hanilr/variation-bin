@@ -45,7 +45,7 @@ union Define_T vn_mathizer(char *com, ...);
 /* [set] Set a bit. (enum Bin_E *Bit, enum Bin_E State) */
 /* [get] Get a bit. (enum Bin_E Bit) */
 /* [toggle] Toggle a bit. (enum Bin_E *Bit) */
-/* [clear] Clear bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */
+/* [clear] Clear all bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */
 /* [clean_range] Clear bits in range in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin, int start_pos, int end_pos) */
 /* [get_range] Get bits in range in a binary. (enum Bin_S Bin_Size, enum Bin_S Range_Size, struct Bin_T InputBin, int start_pos, int end_pos) */
 /* [shift_left] Shift left bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */

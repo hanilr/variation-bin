@@ -84,19 +84,19 @@
     /* [bin_to_double] Binary to double conversion. (enum Bin_S Bin_Size, struct Bin_T Bin) */
     /* [hex_to_bin] Hexadecimal to binary conversion. (enum Hex_S Hex_Size, char *input) */
     /* [bin_to_hex] Binary to hexadecimal conversion. (enum Bin_S Bin_Size, struct Bin_T InputBin) */
-    #define vn_bin(com, ...) (vn_binizer(com, ...))
+    #define vn_bin(com, ...) (vn_binizer(com, __VA_ARGS__))
     
     /* Variation Bit: Bit manipulation process. */
     /* ---------------------------------------- */
     /* [set] Set a bit. (enum Bin_E *Bit, enum Bin_E State) */
     /* [get] Get a bit. (enum Bin_E Bit) */
     /* [toggle] Toggle a bit. (enum Bin_E *Bit) */
-    /* [clear] Clear bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */
+    /* [clear] Clear all bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */
     /* [clean_range] Clear bits in range in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin, int start_pos, int end_pos) */
     /* [get_range] Get bits in range in a binary. (enum Bin_S Bin_Size, enum Bin_S Range_Size, struct Bin_T InputBin, int start_pos, int end_pos) */
     /* [shift_left] Shift left bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */
     /* [shift_right] Shift right bits in a binary. (enum Bin_S Bin_Size, struct Bin_T *Bin) */
-    #define vn_bit(com, ...) (vn_bitizer(com, ...))
+    #define vn_bit(com, ...) (vn_bitizer(com, __VA_ARGS__))
     
     /* Variation Logic: Logic gate. */
     /* ---------------------------- */
@@ -107,7 +107,7 @@
     /* [nor] NOR gate. (enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) */
     /* [xor] XOR gate. (enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) */
     /* [xnor] XNOR gate. (enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) */
-    #define vn_logic(com, ...) (vn_logicizer(com, ...))
+    #define vn_logic(com, ...) (vn_logicizer(com, __VA_ARGS__))
     
     /* Variation Math: Mathematical operations. */
     /* ---------------------------------------- */
@@ -117,7 +117,7 @@
     /* [full_subtractor] Full subtractor operation. (enum Bin_E A, enum Bin_E B, enum Bin_E Bin) */
     /* [add] Addition operation. (enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) */
     /* [sub] Subtraction operation. (enum Bin_S Bin_Size, struct Bin_T FirstBin, struct Bin_T SecondBin) */
-    #define vn_math(com, ...) (vn_mathizer(com, ...))
+    #define vn_math(com, ...) (vn_mathizer(com, __VA_ARGS__))
 #endif /* SUMMARY SECTION */
 
 #ifdef VN_BIN_IMPLEMENTATION
@@ -289,6 +289,7 @@
 
     struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
         struct Bin_T Bin[2];
+        struct Bin_T Result;
 
         int part_int = (int)input; // Integer part
         double dec = input - part_int;
@@ -301,16 +302,16 @@
             i += 1;
         } 
 
-        Bin[1] = vn_int_to_bin(Bin_Size, part_int);
-        Bin[2] = vn_int_to_bin(Bin_Size, part_dec);
+        Bin[0] = vn_int_to_bin(Bin_Size, part_int);
+        Bin[1] = vn_int_to_bin(Bin_Size, part_dec);
 
-        Bin[0] = vn_merge_bin(Bin_Size, Bin[1], Bin[2]);
-        Bin[0].bit_dot = HIGH; // Set the bit is double
+        Result = vn_merge_bin(Bin_Size, Bin[0], Bin[1]);
+        Result.bit_dot = HIGH; // Set the bit is double
         // Sign bit process
-        if (input < 0) Bin[0].bit_sign = HIGH;
-        else Bin[0].bit_sign = LOW;
+        if (input < 0) Result.bit_sign = HIGH;
+        else Result.bit_sign = LOW;
 
-        return Bin[0];
+        return Result;
     } // Double type limited to max 64 bit because of merge function
 
     double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin) {
@@ -471,7 +472,7 @@
         struct Bin_T Bin = {0};
         int i = 0;
 
-        while (i != Range_Size || i != end_pos - start_pos) { // Assignment
+        while (Bin_Size - 1 != start_pos + i) { // Assignment
             if (Bin_Size == 4) {
                 if (Range_Size == 4) Bin.bit_type.Bit4_T[i] = InputBin.bit_type.Bit4_T[start_pos + i];
             } else if (Bin_Size == 8) {
@@ -503,8 +504,8 @@
             i += 1;
         }
 
-        Bin.bit_dot = InputBin.bit_dot;
         Bin.bit_sign = InputBin.bit_sign;
+        Bin.bit_dot = InputBin.bit_dot;
 
         return Bin;
     }

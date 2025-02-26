@@ -42,7 +42,7 @@ struct Bin_T vn_bit_get_range(enum Bin_S Bin_Size, enum Bin_S Range_Size, struct
     struct Bin_T Bin = {0};
     int i = 0;
 
-    while (i != Range_Size || i != end_pos - start_pos) { // Assignment
+    while (Bin_Size - 1 != start_pos + i) { // Assignment
         if (Bin_Size == 4) {
             if (Range_Size == 4) Bin.bit_type.Bit4_T[i] = InputBin.bit_type.Bit4_T[start_pos + i];
         } else if (Bin_Size == 8) {

@@ -67,11 +67,12 @@ int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin) {
 
 struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
     struct Bin_T Bin[2];
+    struct Bin_T Result;
 
     int part_int = (int)input; // Integer part
     double dec = input - part_int;
     int part_dec = (int)(dec * 1000000);
-    
+
     int i = 0;
     while (i != 6) {
         if (part_dec % 10 == 0) part_dec /= 10;
@@ -79,16 +80,16 @@ struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
         i += 1;
     } 
 
-    Bin[1] = vn_int_to_bin(Bin_Size, part_int);
-    Bin[2] = vn_int_to_bin(Bin_Size, part_dec);
+    Bin[0] = vn_int_to_bin(Bin_Size, part_int);
+    Bin[1] = vn_int_to_bin(Bin_Size, part_dec);
 
-    Bin[0] = vn_merge_bin(Bin_Size, Bin[1], Bin[2]);
-    Bin[0].bit_dot = HIGH; // Set the bit is double
+    Result = vn_merge_bin(Bin_Size, Bin[0], Bin[1]);
+    Result.bit_dot = HIGH; // Set the bit is double
     // Sign bit process
-    if (input < 0) Bin[0].bit_sign = HIGH;
-    else Bin[0].bit_sign = LOW;
+    if (input < 0) Result.bit_sign = HIGH;
+    else Result.bit_sign = LOW;
 
-    return Bin[0];
+    return Result;
 } // Double type limited to max 64 bit because of merge function
 
 double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin) {
