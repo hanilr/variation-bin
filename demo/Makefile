@@ -1,5 +1,5 @@
 CC = gcc
-STD = -std=c99
+STD = -std=c89
 MAIN = demo.c
 OUT = demo
 

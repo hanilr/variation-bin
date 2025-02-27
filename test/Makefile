@@ -1,5 +1,5 @@
 # General Variables #
-CC = gcc
+CC = gcc -std=c89
 all_folder = all/
 
 # Library and Source Code Destination #

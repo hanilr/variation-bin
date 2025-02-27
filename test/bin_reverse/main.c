@@ -29,13 +29,13 @@ int main(void) {
 
     struct Bin_T ReverseBin = vn_reverse_bin(BinSize, Bin);
     bin_printer(BinSize, ReverseBin);
-    // ---
+    /* --- */
     struct Bin_T Bin1 = vn_int_to_bin(BinSize, 31);
     bin_printer(BinSize, Bin1);
 
     struct Bin_T ReverseBin1 = vn_reverse_bin(BinSize, Bin1);
     bin_printer(BinSize, ReverseBin1);
-    // ---
+    /* --- */
     struct Bin_T Bin2 = vn_int_to_bin(BinSize, 63);
     bin_printer(BinSize, Bin2);
 

@@ -66,7 +66,7 @@ struct Bin_T vn_math_process(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct 
     struct Bin_M OP = {0};
 
     int i = Bin_Size - 1;
-    while (1) { // Assignment
+    while (1) { /* Assignment */
         if (Bin_Size == 4){
             if (math_op == '+') {
                 OP = vn_full_adder(FirstBin.bit_type.Bit4_T[i], SecondBin.bit_type.Bit4_T[i], OP.math_type_second.Carry);

@@ -4,13 +4,13 @@
 #ifndef _VN_DEF_H
 #define _VN_DEF_H
 
-union Define_T { // Multi return type
-    struct Bin_T Bin;   // Binary
-    int Integer;        // Integer
-    double Decimal;     // Double
-    char *Char;         // Character
-    enum Bin_E Bit;     // Bit
-    struct Bin_M Math;  // Math
+union Define_T {        /* Multi return type    */
+    struct Bin_T Bin;   /* Binary               */
+    int Integer;        /* Integer              */
+    double Decimal;     /* Double               */
+    char *Char;         /* Character            */
+    enum Bin_E Bit;     /* Bit                  */
+    struct Bin_M Math;  /* Math                 */
 };
 
 /* Variation Binizer: Binary process linker. */

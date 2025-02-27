@@ -14,7 +14,7 @@ struct Bin_T vn_logic_process(enum Bin_S Bin_Size, struct Bin_T FirstBin, struct
     struct Bin_T ResultBin;
     int i = 0;
 
-    while (1) { // Assignment
+    while (1) { /* Assignment */
         if(logic_op == '&') {
             if (Bin_Size == 4) ResultBin.bit_type.Bit4_T[i] = FirstBin.bit_type.Bit4_T[i] & SecondBin.bit_type.Bit4_T[i];
             else if (Bin_Size == 8) ResultBin.bit_type.Bit8_T[i] = FirstBin.bit_type.Bit8_T[i] & SecondBin.bit_type.Bit8_T[i];

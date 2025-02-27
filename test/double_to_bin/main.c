@@ -32,11 +32,11 @@ int main(void) {
     enum Bin_S Bin_Size3 = 32;
     enum Bin_S Bin_Size4 = 64;
 
-    double D1 = 5.4;        // 8 bit
-    double D2 = -3.2;       // 8 bit
-    double D3 = 27.39;      // 8 bit
-    double D4 = 139.469;    // 64 bit
-    double D5 = 219.3456;   // 64 bit
+    double D1 = 5.4;        /* 8 bit  */
+    double D2 = -3.2;       /* 8 bit  */
+    double D3 = 27.39;      /* 8 bit  */
+    double D4 = 139.469;    /* 64 bit */
+    double D5 = 219.3456;   /* 64 bit */
 
     Bin1 = vn_double_to_bin(Bin_Size1, D1);
     Bin2 = vn_double_to_bin(Bin_Size1, D2);

@@ -14,14 +14,14 @@ struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
     int cInt[128] = {0}, i = 0, n = Bin_Size-1;
     struct Bin_T Bin;
 
-    while (1) { // Conversion
+    while (1) { /* Conversion */
         if (input % 2 != 0) cInt[i] = 1;
         input /= 2;
         i += 1;
         if (i == 128) break;
     } i = 0;
 
-    while (i != Bin_Size || n >= 0) { // Assignment
+    while (i != Bin_Size || n >= 0) { /* Assignment */
         if (Bin_Size == 4) Bin.bit_type.Bit4_T[i] = cInt[n];
         else if (Bin_Size == 8) Bin.bit_type.Bit8_T[i] = cInt[n];
         else if (Bin_Size == 16) Bin.bit_type.Bit16_T[i] = cInt[n];
@@ -31,10 +31,10 @@ struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
         i += 1;
         n -= 1;
     }
-    // Sign bit process
+    /* Sign bit process */
     if (input < 0) Bin.bit_sign = HIGH; 
     else Bin.bit_sign = LOW;
-    Bin.bit_dot = LOW; // Set 'LOW' as default
+    Bin.bit_dot = LOW; /* Set 'LOW' as default */
 
     return Bin;
 }
@@ -42,7 +42,7 @@ struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
 int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin) {
     int result = 0, cInt[128] = {0}, i = 0, n = Bin_Size-1;
 
-    while (i != Bin_Size || n >= 0) { // Assignment
+    while (i != Bin_Size || n >= 0) { /* Assignment */
         if (Bin_Size == 4) cInt[n] = Bin.bit_type.Bit4_T[i];
         else if (Bin_Size == 8) cInt[n] = Bin.bit_type.Bit8_T[i];
         else if (Bin_Size == 16) cInt[n] = Bin.bit_type.Bit16_T[i];
@@ -55,7 +55,7 @@ int vn_bin_to_int(enum Bin_S Bin_Size, struct Bin_T Bin) {
 
     i = 0;
     n = 1;
-    while (i != Bin_Size) { // Solution
+    while (i != Bin_Size) { /* Solution*/
         result += cInt[i] * n;
         i += 1;
         n *= 2;
@@ -69,7 +69,7 @@ struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
     struct Bin_T Bin[2];
     struct Bin_T Result;
 
-    int part_int = (int)input; // Integer part
+    int part_int = (int)input; /* Integer part */
     double dec = input - part_int;
     int part_dec = (int)(dec * 1000000);
 
@@ -84,22 +84,22 @@ struct Bin_T vn_double_to_bin(enum Bin_S Bin_Size, double input) {
     Bin[1] = vn_int_to_bin(Bin_Size, part_dec);
 
     Result = vn_merge_bin(Bin_Size, Bin[0], Bin[1]);
-    Result.bit_dot = HIGH; // Set the bit is double
-    // Sign bit process
+    Result.bit_dot = HIGH; /* Set the bit is double */
+    /* Sign bit process */
     if (input < 0) Result.bit_sign = HIGH;
     else Result.bit_sign = LOW;
 
     return Result;
-} // Double type limited to max 64 bit because of merge function
+} /* Double type limited to max 64 bit because of merge function */
 
 double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin) {
     enum Bin_E B_Sign = Bin.bit_sign;
     Bin.bit_sign = LOW;
 
-    // Seperation
+    /* Solution */
     struct Bin_T BinInt = vn_split_bin(Bin_Size, Bin, 'f');
     struct Bin_T BinDec = vn_split_bin(Bin_Size, Bin, 's');
-    // Specification
+    /* Specification */
     int part_int = vn_bin_to_int(Bin_Size/2, BinInt);
     int part_dec = vn_bin_to_int(Bin_Size/2, BinDec);
 
@@ -110,12 +110,12 @@ double vn_bin_to_double(enum Bin_S Bin_Size, struct Bin_T Bin) {
     while (part_dec > 0) {
         part_dec /= 10;
         i += 1;
-    } // Find digit
+    } /* Find digit */
 
     while (i > 0) {
         dec /= 10;
         i -= 1;
-    } // Find decimal part
+    } /* Find decimal part */
     result = part_int + dec;
 
     if (B_Sign == HIGH) result *= -1;
@@ -134,13 +134,13 @@ struct Bin_T vn_hex_to_bin(enum Hex_S Hex_Size, char *input) {
     else if (Hex_Size == 8) Bin_Size = 32;
     else if (Hex_Size == 16) Bin_Size = 64;
 
-    while (i != input_len) { // Data conversion
+    while (i != input_len) { /* Data conversion */
         if (input[i] >= '0' && input[i] <= '9') cInt[i] = input[i] - '0';
         else if (input[i] >= 'a' && input[i] <= 'f') cInt[i] = 10 + (input[i] - 'a');
         i += 1;
     } i = 0;
 
-    while (i != input_len) { // Type conversion
+    while (i != input_len) { /* Type conversion */
         Bin[i] = vn_int_to_bin(4, cInt[i]);
         i += 1;
     }
@@ -163,7 +163,7 @@ struct Bin_T vn_hex_to_bin(enum Hex_S Hex_Size, char *input) {
         Bin[2] = vn_merge_bin(16, Bin[0], Bin[1]);
         Result = vn_merge_bin(32, Result, Bin[2]);
     } 
-    
+
     Result.bit_dot = HIGH;
     return Result;
 }
@@ -175,7 +175,7 @@ char* vn_bin_to_hex(enum Bin_S Bin_Size, struct Bin_T InputBin) {
     else if (Bin_Size == 16) Hex_Size = 4;
     else if (Bin_Size == 32) Hex_Size = 8;
     else if (Bin_Size == 64) Hex_Size = 16;
-    
+
     struct Bin_T Bin[Hex_Size];
     char *result = (char*)malloc((Hex_Size) * sizeof(char));
 
@@ -187,7 +187,7 @@ char* vn_bin_to_hex(enum Bin_S Bin_Size, struct Bin_T InputBin) {
     };
 
     int i = 0, n = 0, temp_size = 8, cInt[Hex_Size]; 
-    while (i != Hex_Size) { // Seperation
+    while (i != Hex_Size) { /* Solution */
         if (Hex_Size == 2) {
             Bin[i] = vn_split_bin(8, InputBin, check[i][3]);
         } else if (Hex_Size == 4) {
@@ -199,13 +199,13 @@ char* vn_bin_to_hex(enum Bin_S Bin_Size, struct Bin_T InputBin) {
         } 
         i += 1;
     } i = 0;
-    
-    while (i != Hex_Size) { // Type conversion
+
+    while (i != Hex_Size) { /* Type conversion */
         cInt[i] = vn_bin_to_int(4, Bin[i]);
         i += 1;
     } i = 0;
 
-    while (i != Hex_Size) { // Data conversion
+    while (i != Hex_Size) { /* Data conversion */
         if (cInt[i] >= 0 && cInt[i] <= 9) result[i] = cInt[i] + '0';
         else if (cInt[i] >= 10 && cInt[i] <= 15) result[i] = (cInt[i] - 10 ) + 'a';
         i += 1;
