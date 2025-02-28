@@ -1,7 +1,7 @@
-# --------------------------------------------------------- #
-# SINGLE-HEADER TERMINAL USER INTERFACE | VARIATION-LITE-UI #
-#             SHARED-LIBRARY CONVERTING MAKEFILE            #
-# --------------------------------------------------------- #
+# --------------------------------------- #
+# SINGLE-HEADER BINARY | VARIATION-BINARY #
+#    SHARED-LIBRARY CONVERTING MAKEFILE   #
+# --------------------------------------- #
 
 # CONFIGURATION #
 CC = gcc
