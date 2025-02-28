@@ -84,6 +84,7 @@
     /* [bin_to_double] Binary to double conversion. (enum Bin_S Bin_Size, struct Bin_T Bin) */
     /* [hex_to_bin] Hexadecimal to binary conversion. (enum Hex_S Hex_Size, char *input) */
     /* [bin_to_hex] Binary to hexadecimal conversion. (enum Bin_S Bin_Size, struct Bin_T InputBin) */
+    /* [bin_print] Binary print. (enum Bin_S Bin_Size, struct Bin_T Bin) */
     #define vn_bin(com, ...) (vn_binizer(com, __VA_ARGS__))
     
     /* Variation Bit: Bit manipulation process. */
@@ -230,6 +231,22 @@
         Bin.bit_sign = BinInput.bit_sign;
 
         return Bin;
+    }
+
+    void bin_print(enum Bin_S Bin_Size, struct Bin_T Bin) {
+        printf("\nBit Size: %d, Bit Sign: %d, Bit Dot: %d\n > |", Bin_Size, Bin.bit_sign, Bin.bit_dot);
+        
+        int i = 0;
+        while ((i != Bin_Size)) { 
+            if (Bin_Size == 4) printf("%d|", Bin.bit_type.Bit4_T[i]);
+            else if (Bin_Size == 8) printf("%d|", Bin.bit_type.Bit8_T[i]);
+            else if (Bin_Size == 16) printf("%d|", Bin.bit_type.Bit16_T[i]);
+            else if (Bin_Size == 32) printf("%d|", Bin.bit_type.Bit32_T[i]);
+            else if (Bin_Size == 64) printf("%d|", Bin.bit_type.Bit64_T[i]);
+            else if (Bin_Size == 128) printf("%d|", Bin.bit_type.Bit128_T[i]);
+            i += 1;
+        }
+        printf("\n");
     }
 
     struct Bin_T vn_int_to_bin(enum Bin_S Bin_Size, int input) {
@@ -846,6 +863,12 @@
                 Return.Bin = vn_reverse_bin(Bin_Size, Bin);
                 va_end(args); /* End arg */
                 return Return;
+            } else if (!strcmp(com, "bin_print")) { /* Binary print */
+                enum Bin_E Bin_Size = va_arg(args, enum Bin_E);
+                struct Bin_T Bin = va_arg(args, struct Bin_T);
+                
+                bin_print(Bin_Size, Bin);
+                va_end(args); /* End arg */
             } else if (!strcmp(com, "int_to_bin")) { /* Integer to binary */
                 enum Bin_E Bin_Size = va_arg(args, enum Bin_E);
                 int var = va_arg(args, int);

@@ -17,4 +17,7 @@ struct Bin_T vn_split_bin(enum Bin_S Bin_Size, struct Bin_T BinInput, char which
 /* MAKE REVERSE OF THE BINARY */
 struct Bin_T vn_reverse_bin(enum Bin_S Bin_Size, struct Bin_T BinInput);
 
+/* PRINT BINARY */
+void bin_print(enum Bin_S Bin_Size, struct Bin_T Bin);
+
 #endif /* MADE BY @hanilr */

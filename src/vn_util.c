@@ -112,4 +112,20 @@ struct Bin_T vn_reverse_bin(enum Bin_S Bin_Size, struct Bin_T BinInput) {
     return Bin;
 }
 
+void bin_print(enum Bin_S Bin_Size, struct Bin_T Bin) {
+    printf("\nBit Size: %d, Bit Sign: %d, Bit Dot: %d\n > |", Bin_Size, Bin.bit_sign, Bin.bit_dot);
+    
+    int i = 0;
+    while ((i != Bin_Size)) { 
+        if (Bin_Size == 4) printf("%d|", Bin.bit_type.Bit4_T[i]);
+        else if (Bin_Size == 8) printf("%d|", Bin.bit_type.Bit8_T[i]);
+        else if (Bin_Size == 16) printf("%d|", Bin.bit_type.Bit16_T[i]);
+        else if (Bin_Size == 32) printf("%d|", Bin.bit_type.Bit32_T[i]);
+        else if (Bin_Size == 64) printf("%d|", Bin.bit_type.Bit64_T[i]);
+        else if (Bin_Size == 128) printf("%d|", Bin.bit_type.Bit128_T[i]);
+        i += 1;
+    }
+    printf("\n");
+}
+
 /* MADE BY @hanilr */

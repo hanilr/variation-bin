@@ -54,6 +54,12 @@ union Define_T vn_binizer(char *com, ...) {
             Return.Bin = vn_reverse_bin(Bin_Size, Bin);
             va_end(args); /* End arg */
             return Return;
+        } else if (!strcmp(com, "bin_print")) { /* Binary print */
+            enum Bin_E Bin_Size = va_arg(args, enum Bin_E);
+            struct Bin_T Bin = va_arg(args, struct Bin_T);
+            
+            bin_print(Bin_Size, Bin);
+            va_end(args); /* End arg */
         } else if (!strcmp(com, "int_to_bin")) { /* Integer to binary */
             enum Bin_E Bin_Size = va_arg(args, enum Bin_E);
             int var = va_arg(args, int);

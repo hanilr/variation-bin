@@ -38,6 +38,7 @@ union Define_T vn_mathizer(char *com, ...);
 /* [bin_to_double] Binary to double conversion. (enum Bin_S Bin_Size, struct Bin_T Bin) */
 /* [hex_to_bin] Hexadecimal to binary conversion. (enum Hex_S Hex_Size, char *input) */
 /* [bin_to_hex] Binary to hexadecimal conversion. (enum Bin_S Bin_Size, struct Bin_T InputBin) */
+/* [bin_print] Binary print. (enum Bin_S Bin_Size, struct Bin_T Bin) */
 #define vn_bin(com, ...) (vn_binizer(com, ...))
 
 /* Variation Bit: Bit manipulation process. */

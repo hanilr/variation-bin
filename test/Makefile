@@ -43,6 +43,7 @@ math_add_in = math_add/main.c
 math_sub_in = math_sub/main.c
 hex_to_bin_in = hex_to_bin/main.c
 bin_to_hex_in = bin_to_hex/main.c
+bin_print_in = bin_print/main.c
 
 # Output Names #
 bin_merge_out = bin_merge
@@ -77,6 +78,7 @@ math_add_out = math_add
 math_sub_out = math_sub
 hex_to_bin_out = hex_to_bin
 bin_to_hex_out = bin_to_hex
+bin_print_out = bin_print
 
 # Executable Names #
 bin_merge_exe = ./bin_merge/main
@@ -111,8 +113,9 @@ math_add_exe = ./math_add/main
 math_sub_exe = ./math_sub/main
 hex_to_bin_exe = ./hex_to_bin/main
 bin_to_hex_exe = ./bin_to_hex/main
+bin_print_exe = ./bin_print/main
 
-.PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot gate_and gate_or gate_not gate_nand gate_nor gate_xor gate_xnor math_half_adder math_full_adder math_half_subtractor math_full_subtractor math_add math_sub hex_to_bin bin_to_hex
+.PHONY: run clean all clean_all bin_merge bin_split bin_to_double bin_to_int double_to_bin int_to_bin bit_set bit_get bit_toggle bit_clear bit_get_range bit_clean_range bit_shift_left bit_shift_right bin_reverse bit_set_sign bit_set_dot gate_and gate_or gate_not gate_nand gate_nor gate_xor gate_xnor math_half_adder math_full_adder math_half_subtractor math_full_subtractor math_add math_sub hex_to_bin bin_to_hex bin_print
 
 run: $(lib)
 	@echo -n "\nCompiling: ["
@@ -181,6 +184,8 @@ run: $(lib)
 	@$(CC) $(lib) $(hex_to_bin_in) -o $(all_folder)$(hex_to_bin_out)
 	@echo -n "*"
 	@$(CC) $(lib) $(bin_to_hex_in) -o $(all_folder)$(bin_to_hex_out)
+	@echo -n "*"
+	@$(CC) $(lib) $(bin_print_in) -o $(all_folder)$(bin_print_out)
 	@echo "]\n"
 
 clean: $(all_folder)
@@ -251,6 +256,8 @@ all:
 	@$(CC) $(lib) $(hex_to_bin_in) -o $(hex_to_bin_exe)
 	@echo -n "*"
 	@$(CC) $(lib) $(bin_to_hex_in) -o $(bin_to_hex_exe)
+	@echo -n "*"
+	@$(CC) $(lib) $(bin_print_in) -o $(bin_print_exe)
 	@echo "]\n"
 
 clean_all:
@@ -286,6 +293,7 @@ clean_all:
 	@rm -f $(math_sub_exe)
 	@rm -f $(hex_to_bin_exe)
 	@rm -f $(bin_to_hex_exe)
+	@rm -f $(bin_print_exe)
 
 bin_merge: $(bin_merge_in)
 	@$(CC) $(lib) $(bin_merge_in) -o $(bin_merge_exe)
@@ -414,3 +422,7 @@ hex_to_bin: $(hex_to_bin_in)
 bin_to_hex: $(bin_to_hex_in)
 	@$(CC) $(lib) $(bin_to_hex_in) -o $(bin_to_hex_exe)
 	@$(bin_to_hex_exe)
+
+bin_print: $(bin_print_in)
+	@$(CC) $(lib) $(bin_print_in) -o $(bin_print_exe)
+	@$(bin_print_exe)

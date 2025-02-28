@@ -17,6 +17,7 @@
 #define com_bin_to_double   "bin_to_double"
 #define com_hex_to_bin      "hex_to_bin"
 #define com_bin_to_hex      "bin_to_hex"
+#define com_bin_print       "bin_print"
 
 #define com_set_bit         "set"
 #define com_get_bit         "get"
@@ -43,7 +44,7 @@
 #define com_sub             "sub"
 
 /* BINARY PRINT */
-void bin_print(enum Bin_S Bin_Size, struct Bin_T Bin, char *expectation) {
+void bin_printer(enum Bin_S Bin_Size, struct Bin_T Bin, char *expectation) {
     printf("\nBit Size: %d, Bit Sign: %d, Bit Dot: %d\n > |", Bin_Size, Bin.bit_sign, Bin.bit_dot);
     
     int i = 0;
@@ -81,54 +82,54 @@ int main(void) { /* Demo main */
     printf("\n[======= Binary Functions =======]");
     printf("\n= Initialition =\n");
 
-    bin_print(S_4, Bin0, "Initial Binary '0'"); /* Every bits are '0' */
-    bin_print(S_4, Bin1, "Initial Binary '1'"); /* Every bits are '0' */
+    bin_printer(S_4, Bin0, "Initial Binary '0'"); /* Every bits are '0' */
+    bin_printer(S_4, Bin1, "Initial Binary '1'"); /* Every bits are '0' */
     
     printf("\n================");
     printf("\n= Sign and Dot =\n");
 
     vn_bin(com_set_sign, &Bin0, HIGH); /* Sign bit HIGH */
-    bin_print(S_4, Bin0, "Sign bit should turn '0' to '1'.");
+    bin_printer(S_4, Bin0, "Sign bit should turn '0' to '1'.");
     vn_bin(com_set_sign, &Bin0, LOW); /* Sign bit LOW */
-    bin_print(S_4, Bin0, "Sign bit should turn '1' to '0'.");
+    bin_printer(S_4, Bin0, "Sign bit should turn '1' to '0'.");
 
     vn_bin(com_set_dot, &Bin0, HIGH); /* Dot bit HIGH */
-    bin_print(S_4, Bin0, "Dot bit should turn '0' to '1'.");
+    bin_printer(S_4, Bin0, "Dot bit should turn '0' to '1'.");
     vn_bin(com_set_dot, &Bin0, LOW); /* Dot bit LOW */
-    bin_print(S_4, Bin0, "Dot bit should turn '1' to '0'.");
+    bin_printer(S_4, Bin0, "Dot bit should turn '1' to '0'.");
 
     printf("\n================");
     printf("\n=== Utilities ==\n");
     
     Def[0] = vn_bin(com_merge, S_4, Bin0, Bin1);
-    bin_print(S_8, Def[0].Bin, "Should merge bins to double bin size. [0|0|0|0|1|0|0|0]");
+    bin_printer(S_8, Def[0].Bin, "Should merge bins to double bin size. [0|0|0|0|1|0|0|0]");
 
     Def[1] = vn_bin(com_split, S_8, Def[0].Bin, 'f');
-    bin_print(S_4, Def[1].Bin, "Should separate bins to half bin size. First half. [0|0|0|0]");
+    bin_printer(S_4, Def[1].Bin, "Should separate bins to half bin size. First half. [0|0|0|0]");
 
     Def[1] = vn_bin(com_split, S_8, Def[0].Bin, 's');
-    bin_print(S_4, Def[1].Bin, "Should separate bins to half bin size. Second half. [1|0|0|0]");
+    bin_printer(S_4, Def[1].Bin, "Should separate bins to half bin size. Second half. [1|0|0|0]");
 
     Def[1] = vn_bin(com_reverse, S_8, Def[0].Bin);
-    bin_print(S_8, Def[1].Bin, "Binary should be reverse. [0|0|0|1|0|0|0|0]");
+    bin_printer(S_8, Def[1].Bin, "Binary should be reverse. [0|0|0|1|0|0|0|0]");
 
     printf("\n================");
     printf("\n== Conversion ==\n");
 
     Def[0] = vn_bin(com_int_to_bin, S_16, 31);
-    bin_print(S_16, Def[0].Bin, "Integer should be converted to binary. [0|0|0|0|0|0|0|0|0|0|0|1|1|1|1|1]");
+    bin_printer(S_16, Def[0].Bin, "Integer should be converted to binary. [0|0|0|0|0|0|0|0|0|0|0|1|1|1|1|1]");
 
     Def[1] = vn_bin(com_bin_to_int, S_16, Def[0].Bin);
     printf("\n|%d|\nExpect: %s\n", Def[1].Integer, "Binary should be converted to integer. [31]");
 
     Def[0] = vn_bin(com_double_to_bin, S_4, 3.1);
-    bin_print(S_8, Def[0].Bin, "Double should be converted to binary, also should dot bit turn to '1'. [0|0|1|1|1|1|1|0]");
+    bin_printer(S_8, Def[0].Bin, "Double should be converted to binary, also should dot bit turn to '1'. [0|0|1|1|1|1|1|0]");
 
     Def[1] = vn_bin(com_bin_to_double, S_8, Def[0].Bin);
     printf("\n|%lf|\nExpect: %s\n", Def[1].Decimal, "Binary should be converted to double. [3.1]");
 
     Def[0] = vn_bin(com_hex_to_bin, H_2, "a5");
-    bin_print(S_8, Def[0].Bin, "Hexadecimal should be converted to binary. [1|0|1|0|0|1|0|1]");
+    bin_printer(S_8, Def[0].Bin, "Hexadecimal should be converted to binary. [1|0|1|0|0|1|0|1]");
 
     Def[1] = vn_bin(com_bin_to_hex, S_8, Def[0].Bin);
     printf("\n|%s|\nExpect: %s\n", Def[1].Char, "Binary should be converted to hexadecimal. [a5]");
@@ -139,25 +140,25 @@ int main(void) { /* Demo main */
     printf("\n== Bit by Bit ==");
 
     vn_bit(com_set_bit, &Bin0.bit_type.Bit4_T[2], HIGH);
-    bin_print(S_4, Bin0, "Third bit in the binary should be '1'. [0|0|1|0]");
+    bin_printer(S_4, Bin0, "Third bit in the binary should be '1'. [0|0|1|0]");
 
     Def[0] = vn_bit(com_get_bit, Bin0.bit_type.Bit4_T[2]);
     printf("\nBit: %d\nExpect: %s\n", Def[0].Bit, "Bit should be '1'");
 
     vn_bit(com_set_bit, &Bin0.bit_type.Bit4_T[2], LOW);
-    bin_print(S_4, Bin0, "Third bit in the binary should be '0'. [0|0|0|0]");
+    bin_printer(S_4, Bin0, "Third bit in the binary should be '0'. [0|0|0|0]");
 
     Def[0] = vn_bit(com_get_bit, Bin0.bit_type.Bit4_T[2]);
     printf("\nBit: %d\nExpect: %s\n", Def[0].Bit, "Bit should be '0'");
 
     vn_bit(com_toggle_bit, &Bin0.bit_type.Bit4_T[1]);
-    bin_print(S_4, Bin0, "Second bit in the binary should be '1'. [0|1|0|0]");
+    bin_printer(S_4, Bin0, "Second bit in the binary should be '1'. [0|1|0|0]");
     
     vn_bit(com_toggle_bit, &Bin0.bit_type.Bit4_T[2]);
-    bin_print(S_4, Bin0, "Second bit in the binary should be '1'. [0|1|1|0]");
+    bin_printer(S_4, Bin0, "Second bit in the binary should be '1'. [0|1|1|0]");
 
     vn_bit(com_clear_bit, S_4, &Bin0);
-    bin_print(S_4, Bin0, "All bits should be '0'. [0|0|0|0]");
+    bin_printer(S_4, Bin0, "All bits should be '0'. [0|0|0|0]");
 
     printf("\n================");
     printf("\n=== Bit Range ==");
@@ -167,19 +168,19 @@ int main(void) { /* Demo main */
     vn_bit(com_set_bit, &Bin0.bit_type.Bit4_T[2], HIGH);
     vn_bit(com_set_bit, &Bin0.bit_type.Bit4_T[3], HIGH);
     vn_bit(com_clean_range, S_4, &Bin0, 0, 1);
-    bin_print(S_4, Bin0, "First and second bits should be '0'. [0|0|1|1]");
+    bin_printer(S_4, Bin0, "First and second bits should be '0'. [0|0|1|1]");
 
     Def[0] = vn_bit(com_get_range, S_4, S_4, Bin0, 1, 2);
-    bin_print(S_4, Def[0].Bin, "First should be '0' and second should be '1'. [0|1|0|0]");
+    bin_printer(S_4, Def[0].Bin, "First should be '0' and second should be '1'. [0|1|0|0]");
 
     printf("\n================");
     printf("\n== Bit Shifts ==");
 
     vn_bit(com_shift_left, S_4, &Def[0].Bin);
-    bin_print(S_4, Def[0].Bin, "Second bit should be shifted to first bit. [1|0|0|0]");
+    bin_printer(S_4, Def[0].Bin, "Second bit should be shifted to first bit. [1|0|0|0]");
 
     vn_bit(com_shift_right, S_4, &Def[0].Bin);
-    bin_print(S_4, Def[0].Bin, "First bit should be shifted to second bit. [0|1|0|0]");
+    bin_printer(S_4, Def[0].Bin, "First bit should be shifted to second bit. [0|1|0|0]");
 
     printf("\n================");
     printf("\n[================================]");
@@ -196,25 +197,25 @@ int main(void) { /* Demo main */
     }
     
     Result = vn_logic(com_and, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 0. [0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0]");
+    bin_printer(S_16, Result, "All bits should 0. [0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0]");
 
     Result = vn_logic(com_or, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
+    bin_printer(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
 
     Result = vn_logic(com_not, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
+    bin_printer(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
 
     Result = vn_logic(com_nand, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
+    bin_printer(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
 
     Result = vn_logic(com_nor, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 0. [0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0]");
+    bin_printer(S_16, Result, "All bits should 0. [0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0]");
 
     Result = vn_logic(com_xor, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
+    bin_printer(S_16, Result, "All bits should 1. [1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1]");
 
     Result = vn_logic(com_xnor, S_16, A, B);
-    bin_print(S_16, Result, "All bits should 0. [0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0]");
+    bin_printer(S_16, Result, "All bits should 0. [0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0]");
 
     printf("\n[================================]\n");
     printf("\n[==== Mathematical Funcitons ====]\n");
@@ -234,8 +235,8 @@ int main(void) { /* Demo main */
         i += 1;
     }
 
-    bin_print(S_16, X, "Initialize math first.");
-    bin_print(S_16, Y, "Initialize math second.");
+    bin_printer(S_16, X, "Initialize math first.");
+    bin_printer(S_16, Y, "Initialize math second.");
     
     Def[0] = vn_math(com_half_add, Bit1, Bit2);
     printf("\nSum: %d, Carry: %d\nExpect: 1, 0\n", Def[0].Math.math_type_first.Sum, Def[0].Math.math_type_second.Carry);
@@ -250,10 +251,22 @@ int main(void) { /* Demo main */
     printf("\nSum: %d, Carry: %d\nExpect: 1, 1\n", Def[1].Math.math_type_first.Dif, Def[1].Math.math_type_second.Borrow);
 
     Def[1] = vn_math(com_add, S_16, X, Y);
-    bin_print(S_16, Def[1].Bin, "|0|1|1|1|1|1|1|0|1|1|1|1|1|1|1|1|");
+    bin_printer(S_16, Def[1].Bin, "|0|1|1|1|1|1|1|0|1|1|1|1|1|1|1|1|");
 
     Def[0] = vn_math(com_sub, S_16, Y, X);
-    bin_print(S_16, Def[0].Bin, "|0|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|");
+    bin_printer(S_16, Def[0].Bin, "|0|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|");
+
+    printf("\n[================================]\n");
+    printf("\n[========== Last State ==========]\n");
+
+    vn_bin(com_bin_print, S_4, Bin0);
+    vn_bin(com_bin_print, S_4, Bin1);
+    vn_bin(com_bin_print, S_16, Def[0].Bin);
+    vn_bin(com_bin_print, S_16, Def[1].Bin);
+    vn_bin(com_bin_print, S_16, X);
+    vn_bin(com_bin_print, S_16, Y);
+    vn_bin(com_bin_print, S_16, A);
+    vn_bin(com_bin_print, S_16, B);
 
     printf("\n[================================]\n");
 
