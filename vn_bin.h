@@ -23,13 +23,13 @@
         S_Hex16 = 16    /* 64 bit                           */
     };
 
-    union Bin_U {                   /* Data size selection part */
-        enum Bin_E Bit4_T[3];       /* 8 bit (1 byte)           */
-        enum Bin_E Bit8_T[7];       /* 8 bit (1 byte)           */
-        enum Bin_E Bit16_T[15];     /* 16 bit (2 byte)          */
-        enum Bin_E Bit32_T[31];     /* 32 bit (4 byte)          */
-        enum Bin_E Bit64_T[63];     /* 64 bit (8 byte)          */
-        enum Bin_E Bit128_T[127];   /* 128 bit (16 byte)        */
+    union Bin_U {                    /* Data size selection part */
+        enum Bin_E Bit4_T[4U];       /* 8 bit                    */
+        enum Bin_E Bit8_T[8U];       /* 8 bit                    */
+        enum Bin_E Bit16_T[16U];     /* 16 bit                   */
+        enum Bin_E Bit32_T[32U];     /* 32 bit                   */
+        enum Bin_E Bit64_T[64U];     /* 64 bit                   */
+        enum Bin_E Bit128_T[128U];   /* 128 bit                  */
     };
 
     struct Bin_T {              /* Binary type                                              */
