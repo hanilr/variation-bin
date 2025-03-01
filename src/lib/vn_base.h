@@ -24,12 +24,12 @@ enum Hex_S {        /* Hexadecimal size selection type  */
 };
 
 union Bin_U {                    /* Data size selection part */
-    enum Bin_E Bit4_T[3U];       /* 8 bit                    */
-    enum Bin_E Bit8_T[7U];       /* 8 bit                    */
-    enum Bin_E Bit16_T[15U];     /* 16 bit                   */
-    enum Bin_E Bit32_T[31U];     /* 32 bit                   */
-    enum Bin_E Bit64_T[63U];     /* 64 bit                   */
-    enum Bin_E Bit128_T[127U];   /* 128 bit                  */
+    enum Bin_E Bit4_T[4U];       /* 8 bit                    */
+    enum Bin_E Bit8_T[8U];       /* 8 bit                    */
+    enum Bin_E Bit16_T[16U];     /* 16 bit                   */
+    enum Bin_E Bit32_T[32U];     /* 32 bit                   */
+    enum Bin_E Bit64_T[64U];     /* 64 bit                   */
+    enum Bin_E Bit128_T[128U];   /* 128 bit                  */
 };
 
 struct Bin_T {              /* Binary type                                              */
